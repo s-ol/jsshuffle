@@ -1,5 +1,10 @@
-require "jsshuffle/version"
+require 'rubygems'
+require 'bundler/setup'
 
-module Jsshuffle
-  # Your code goes here...
-end
+require 'rkelly'
+
+require 'jsshuffle/version'
+require 'jsshuffle/methods'
+require 'jsshuffle/shuffler'
+
+require 'jsshuffle/railtie' if defined?(Rails)
