@@ -79,7 +79,7 @@ module JsShuffle
             return @parser.parse( js ) if hash[:ast]
             js
         end
-        
+
         # Generates a random new symbol name
         def random_new_name
             begin
