@@ -22,9 +22,7 @@ module JsShuffle
             end
 
             @defaults = {}
-            @methods.each do |m|
-                @defaults.merge! m.default_config if m.is_a? JsShuffle::Methods::Method
-            end
+            @methods.each { |m| @defaults.merge! m.default_config if m.is_a? JsShuffle::Methods::Method }
         end
 
         # Shuffle a javascript program string and return the result
@@ -57,7 +55,7 @@ module JsShuffle
             @new_names = []
             ast = hash[:ast] || @parser.parse( hash[:js] )
 
-            @methods.each do |m| m.configure options if m.is_a? JsShuffle::Methods::Method end
+            @methods.each { |m| m.configure options if m.is_a? JsShuffle::Methods::Method }
 
             [:preprocess, :process].each do |pass|
                 @methods.each do |m|

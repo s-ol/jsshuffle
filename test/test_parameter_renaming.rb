@@ -10,7 +10,7 @@ class ParameterRenamingTest < Test::Unit::TestCase
     end
 
     def test_name_changes
-        assert_nothing_raised do @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming end
+        assert_nothing_raised { @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming }
         original = %Q(
             function double(parameter) {
                 return parameter*2;
@@ -21,7 +21,7 @@ class ParameterRenamingTest < Test::Unit::TestCase
     end
 
     def test_code_works
-        assert_nothing_raised do @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming end
+        assert_nothing_raised { @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming }
         shuffled = @shuffler.shuffle js: %Q(
             function double(parameter) {
                 return parameter*2;
@@ -33,7 +33,7 @@ class ParameterRenamingTest < Test::Unit::TestCase
     end
 
     def test_references_updated
-        assert_nothing_raised do @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming end
+        assert_nothing_raised { @shuffler = JsShuffle::Shuffler.new use: :parameter_renaming }
         assert_no_match /parameter/,
             @shuffler.shuffle( js: %Q(
                 function double(parameter) {

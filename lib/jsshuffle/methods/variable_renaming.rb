@@ -6,7 +6,7 @@ module JsShuffle::Methods
         JsShuffle::Methods.methods[:variable_renaming] = self
 
         def process( ast, shuffler )
-            sourceNodes = ast.select do |node| node.is_a? RKelly::Nodes::SourceElementsNode end
+            sourceNodes = ast.select { |node| node.is_a? RKelly::Nodes::SourceElementsNode }
             sourceNodes.each do |node|
                 renamed_variables = {} 
                 node.value.each do |child|
@@ -15,9 +15,7 @@ module JsShuffle::Methods
                     elsif child.is_a? RKelly::Nodes::ResolveNode
                         child.value = renamed_variables[child.value] if renamed_variables.has_key? child.value
                     else
-                        child.each do |n|
-                            n.value = renamed_variables[n.value] if n.is_a? RKelly::Nodes::ResolveNode and renamed_variables.has_key? n.value
-                        end
+                        child.each { |n| n.value = renamed_variables[n.value] if n.is_a? RKelly::Nodes::ResolveNode and renamed_variables.has_key? n.value }
                     end
                 end
             end

@@ -6,13 +6,11 @@ module JsShuffle::Methods
         JsShuffle::Methods.methods[:parameter_renaming] = self
 
         def process( ast, shuffler )
-            functionNodes = ast.select do |node| node.is_a? RKelly::Nodes::FunctionDeclNode end
+            functionNodes = ast.select { |node| node.is_a? RKelly::Nodes::FunctionDeclNode }
             functionNodes.each do |node|
                 renamed_parameters = {}
-                node.arguments.each do |arg| renamed_parameters[arg.value] = (arg.value = shuffler.random_new_name) end
-                node.function_body.value.each do |child|
-                    child.value = renamed_parameters[child.value] if child.is_a? RKelly::Nodes::ResolveNode and renamed_parameters.has_key? child.value
-                end
+                node.arguments.each { |arg| renamed_parameters[arg.value] = (arg.value = shuffler.random_new_name) }
+                node.function_body.value.each { |child| child.value = renamed_parameters[child.value] if child.is_a? RKelly::Nodes::ResolveNode and renamed_parameters.has_key? child.value }
             end
         end
     end
