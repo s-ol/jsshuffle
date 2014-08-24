@@ -2,7 +2,7 @@ require 'test/unit'
 require 'jsshuffle'
 require 'execjs'
 
-class VariableRenamingTest < Test::Unit::TestCase
+class ShufflerTest < Test::Unit::TestCase
     def test_instantiate
         assert_nothing_raised do
             @shuffler = JsShuffle::Shuffler.new
