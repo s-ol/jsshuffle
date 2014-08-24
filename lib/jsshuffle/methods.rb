@@ -9,3 +9,4 @@ end
 
 require 'jsshuffle/methods/method.rb'
 require 'jsshuffle/methods/variable_renaming.rb'
+require 'jsshuffle/methods/parameter_renaming.rb'
