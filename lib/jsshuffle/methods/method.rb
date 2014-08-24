@@ -47,9 +47,9 @@ module JsShuffle::Methods
         
         # Make sure +#respond_to?+ works like expected, even though this class provides the hooks
         def self.inherited( subclass )
-            undef_method :preprocess
-            undef_method :process
-            undef_method :postprocess
+            undef_method :preprocess    rescue ""
+            undef_method :process       rescue "" 
+            undef_method :postprocess   rescue ""
             super
         end
     end
