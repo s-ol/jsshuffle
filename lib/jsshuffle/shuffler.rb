@@ -9,7 +9,7 @@ module JsShuffle
         #   A +Symbol+, +Proc+ or a +Class+ inheriting from {JsShuffle::Methods::Method}[rdoc-ref:JsShuffle::Methods::Method] or an +Array+ mixing any of these types.
         #   Symbols are matched to JsShuffle's native {Methods}[rdoc-ref:JsShuffle::Methods] and should be lowercased and underscored (like the filenames of the corresponding +Method+)
         #   Procs are called three times and receive the +pass+ (one of +:preprocess+, +:process+ or +postprocess+), the AST and the {Shuffler}[rdoc-ref:JsShuffle::Shuffler] instance. In the last pass the js string is passed instead of the AST and the Proc is expected to return the modified string
-        def initialize( hash={ use: :variable_renaming } )
+        def initialize( hash={ use: [:variable_renaming, :parameter_renaming] } )
             @methods = hash[:use]
             @methods = [ @methods ] if @methods.is_a? Symbol
 
@@ -22,9 +22,7 @@ module JsShuffle
             end
 
             @defaults = {}
-            @methods.each do |m|
-                @defaults.merge! m.default_config if m.is_a? JsShuffle::Methods::Method
-            end
+            @methods.each { |m| @defaults.merge! m.default_config if m.is_a? JsShuffle::Methods::Method }
         end
 
         # Shuffle a javascript program string and return the result
@@ -57,7 +55,7 @@ module JsShuffle
             @new_names = []
             ast = hash[:ast] || @parser.parse( hash[:js] )
 
-            @methods.each do |m| m.configure options if m.is_a? JsShuffle::Methods::Method end
+            @methods.each { |m| m.configure options if m.is_a? JsShuffle::Methods::Method }
 
             [:preprocess, :process].each do |pass|
                 @methods.each do |m|
@@ -79,7 +77,7 @@ module JsShuffle
             return @parser.parse( js ) if hash[:ast]
             js
         end
-        
+
         # Generates a random new symbol name
         def random_new_name
             begin
