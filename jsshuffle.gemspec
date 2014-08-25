@@ -5,7 +5,7 @@ require 'jsshuffle/version'
 
 Gem::Specification.new do |spec|
   spec.name          = "jsshuffle"
-  spec.version       = Jsshuffle::VERSION
+  spec.version       = JsShuffle::VERSION
   spec.authors       = ["S0lll0s / Sol Bekic"]
   spec.email         = ["s0lll0s@blinkenshell.org"]
   spec.summary       = %q{A library to just-in-time randomly obfuscate JS}
